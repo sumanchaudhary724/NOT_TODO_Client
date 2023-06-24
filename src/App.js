@@ -1,24 +1,12 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import "./App.css";
 import { TaskForm } from "./components/TaskForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchTasks } from "./helper/axiosHelper";
-import { useState } from "react";
+
 import { TaskContainer } from "./components/TaskContainer";
 
 function App() {
-  const [list, setList] = useState([]);
-
-  const getTaskList = async () => {
-    const { status, taskList } = await fetchTasks();
-
-    if (status === "success" && taskList.length) {
-      setList(taskList);
-    }
-  };
-
-  console.log(list);
   return (
     <div className="wrapper">
       <Container>
@@ -27,11 +15,11 @@ function App() {
         </Row>
 
         {/* form  */}
-        <TaskForm getTaskList={getTaskList} />
+        <TaskForm />
 
         {/* task display table  */}
 
-        <TaskContainer list={list} />
+        <TaskContainer />
       </Container>
       <ToastContainer />
     </div>
