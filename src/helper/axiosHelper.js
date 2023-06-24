@@ -1,7 +1,9 @@
 import axios from "axios";
 
-// const api = "http://localhost:8000/api/v1/task";
-const api = "/api/v1/task";
+const api =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:8000/api/v1/task"
+    : "/api/v1/task";
 
 export const postTask = async (taskObj) => {
   try {
@@ -19,7 +21,7 @@ export const fetchTasks = async () => {
   } catch (error) {
     console.log(error);
     return {
-      status: "error",
+      statsu: "error",
       message: error.message,
     };
   }
@@ -31,6 +33,10 @@ export const switchTask = async (taskObj) => {
     return data;
   } catch (error) {
     console.log(error);
+    return {
+      statsu: "error",
+      message: error.message,
+    };
   }
 };
 
@@ -40,5 +46,9 @@ export const deleteTasks = async (ids) => {
     return data;
   } catch (error) {
     console.log(error);
+    return {
+      statsu: "error",
+      message: error.message,
+    };
   }
 };
