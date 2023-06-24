@@ -10,7 +10,7 @@ import { setTaskList } from "./taskSlice";
 export const getTaskList = () => async (dispatch) => {
   const { status, taskList } = await fetchTasks();
 
-  if (status === "success" && taskList.length) {
+  if (status === "success") {
     // setList(taskList);
     dispatch(setTaskList(taskList));
   }

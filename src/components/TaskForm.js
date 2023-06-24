@@ -4,12 +4,18 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTaskList } from "../redux/taskAction";
+import { toast } from "react-toastify";
+
+const totalHrPerWeek = 7 * 24;
 
 export const TaskForm = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({});
+
+  const { taskList } = useSelector((state) => state.tasks);
+  const total = taskList.reduce((acc, { hr }) => acc + +hr, 0);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +27,13 @@ export const TaskForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    //check if the avaiable hr is enought
 
-    dispatch(addTaskList(form));
+    if (totalHrPerWeek >= total + +form.hr) {
+      return dispatch(addTaskList(form));
+    }
+
+    toast.error("You do not have enought hours to add this task Boos");
   };
 
   return (
@@ -43,6 +54,8 @@ export const TaskForm = () => {
             type="number"
             name="hr"
             onChange={handleOnChange}
+            max={totalHrPerWeek}
+            min={1}
           />
         </Col>
         <Col className="d-grid">

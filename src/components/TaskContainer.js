@@ -37,7 +37,9 @@ export const TaskContainer = () => {
     }
   };
 
-  console.log(ids);
+  const total = taskList.reduce((acc, { hr }) => acc + +hr, 0);
+  const badTotal = badList.reduce((acc, { hr }) => acc + +hr, 0);
+
   return (
     <>
       <Row className="mt-5">
@@ -65,7 +67,7 @@ export const TaskContainer = () => {
                         handleOnSwitch({ _id: item._id, type: "bad" })
                       }
                     >
-                      <i className="fa-solid fa-arrow-right"></i>
+                      <i class="fa-solid fa-arrow-right"></i>
                     </Button>
                   </td>
                 </tr>
@@ -76,7 +78,7 @@ export const TaskContainer = () => {
         <Col>
           <h3 className="text-center">Bad List</h3>
           <hr />
-          <Table striped bordered hover className="bg-none">
+          <Table striped bordered hover variant="dark">
             <tbody>
               {badList.map((item, i) => (
                 <tr key={i}>
@@ -96,11 +98,16 @@ export const TaskContainer = () => {
                         handleOnSwitch({ _id: item._id, type: "entry" })
                       }
                     >
-                      <i className="fa-solid fa-arrow-left"></i>
+                      <i class="fa-solid fa-arrow-left"></i>
                     </Button>
                   </td>
                 </tr>
               ))}
+
+              <tr>
+                <td colSpan={3}>You could gave saved</td>
+                <td>{badTotal}hr</td>
+              </tr>
             </tbody>
           </Table>
         </Col>
@@ -114,6 +121,11 @@ export const TaskContainer = () => {
               </Button>
             </div>
           )}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h3>Total hour allocated = {total}hrs</h3>
         </Col>
       </Row>
     </>

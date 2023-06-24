@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const api = "http://localhost:8000/api/v1/task";
+// const api = "http://localhost:8000/api/v1/task";
+const api = "/api/v1/task";
 
 export const postTask = async (taskObj) => {
   try {
@@ -17,6 +18,10 @@ export const fetchTasks = async () => {
     return data;
   } catch (error) {
     console.log(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
   }
 };
 
